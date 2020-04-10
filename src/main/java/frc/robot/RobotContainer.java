@@ -9,14 +9,17 @@ import frc.robot.subsystems.DriveTrain;
 
 public class RobotContainer {
   XboxController controller = new XboxController(0);
+  
   DriveTrain driveTrain = new DriveTrain();
   AngleTrain angleTrain = new AngleTrain();
+  
   double joyLeftY = 0.0;
   double joyLeftX = 0.0;
   double joyRightX = 0.0;
   double targetAngle = 0.0;
   double currentAngle = 0.0;
   double angleError = 0.0;
+  
   public RobotContainer() {
     configureButtonBindings();
     joyLeftY = controller.getY(Hand.kLeft);
@@ -34,9 +37,9 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return null;
   }
-  /*Since the Joysticks give a -1 to 1 value and I needed to convert that to 0 to 360 scale so that it could be compared to 
-  the absolute encoder, arcsin works great for this*/
-
+  
+  /*Since the Joysticks give a -1 to 1 value and I needed to convert that to 0 to 360 scale, and then to -180 to 180
+  so that it could be compared to the absolute encoder, arcsin works great for this*/
   public double getTargetAngle(){
     currentAngle = angleTrain.getFrontLeftAngle();
     angleError = targetAngle - currentAngle;

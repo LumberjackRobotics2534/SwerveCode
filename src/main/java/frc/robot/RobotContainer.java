@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.SwerveDriveCommand;
+import frc.robot.commands.*;
 import frc.robot.subsystems.AngleTrain;
 import frc.robot.subsystems.DriveTrain;
 
@@ -24,6 +24,7 @@ public class RobotContainer {
     joyRightX = controller.getX(Hand.kRight);
     getTargetAngle();
     driveTrain.setDefaultCommand(new SwerveDriveCommand(driveTrain, angleTrain, joyLeftY, joyLeftX, joyRightX, targetAngle));
+    angleTrain.setDefaultCommand(new SwerveDriveCommand(driveTrain, angleTrain, joyLeftY, joyLeftX, joyRightX, targetAngle));
   }
 
   private void configureButtonBindings() {

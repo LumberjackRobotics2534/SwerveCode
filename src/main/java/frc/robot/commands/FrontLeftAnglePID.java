@@ -10,19 +10,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.AngleTrain;
 
 public class FrontLeftAnglePID extends PIDCommand {
   
-  public FrontLeftAnglePID(DriveTrain _driveTrain, double _targetAngle) {
+  public FrontLeftAnglePID(AngleTrain _angleTrain, double _targetAngle) {
     super(
         new PIDController(0, 0, 0),
-        _driveTrain::getFrontLeftAngle,
+        _angleTrain::getFrontLeftAngle,
         _targetAngle,
         output -> {
-          _driveTrain.frontLeft.setAngleSpeed(output);
+           _angleTrain.frontLeft.set(output);
        },
-        _driveTrain);
+        _angleTrain);
       getController().enableContinuousInput(Constants.anglePIDMinInput, Constants.anglePIDMaxInput);
   }
 

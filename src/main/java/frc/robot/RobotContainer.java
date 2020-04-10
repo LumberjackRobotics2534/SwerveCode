@@ -4,13 +4,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.SwerveDriveCommand;
+import frc.robot.subsystems.AngleTrain;
 import frc.robot.subsystems.DriveTrain;
 
 public class RobotContainer {
   XboxController controller = new XboxController(0);
   DriveTrain driveTrain = new DriveTrain();
+  AngleTrain angleTrain = new AngleTrain();
   double joyLeftY = 0.0;
   double joyLeftX = 0.0;
+  double joyRightX = 0.0;
   double targetAngle = 0.0;
   double currentAngle = 0.0;
   double angleError = 0.0;
@@ -18,8 +21,9 @@ public class RobotContainer {
     configureButtonBindings();
     joyLeftY = controller.getY(Hand.kLeft);
     joyLeftX = controller.getX(Hand.kLeft);
+    joyRightX = controller.getX(Hand.kRight);
     getTargetAngle();
-    driveTrain.setDefaultCommand(new SwerveDriveCommand(driveTrain, joyLeftY, joyLeftX, targetAngle));
+    driveTrain.setDefaultCommand(new SwerveDriveCommand(driveTrain, angleTrain, joyLeftY, joyLeftX, joyRightX, targetAngle));
   }
 
   private void configureButtonBindings() {
@@ -31,7 +35,7 @@ public class RobotContainer {
   }
 
   public double getTargetAngle(){
-    currentAngle = driveTrain.getFrontLeftAngle();
+    currentAngle = angleTrain.getFrontLeftAngle();
     angleError = targetAngle - currentAngle;
     if(Math.abs(angleError) <= 90){
       if(joyLeftY >= 0){

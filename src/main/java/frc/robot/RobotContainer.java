@@ -33,6 +33,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     return null;
   }
+  /*Since the Joysticks give a -1 to 1 value and I needed to convert that to 0 to 360 scale so that it could be compared to 
+  the absolute encoder, arcsin works great for this*/
 
   public double getTargetAngle(){
     currentAngle = angleTrain.getFrontLeftAngle();

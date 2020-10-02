@@ -19,7 +19,7 @@ public class SwerveDriveCommand extends ParallelCommandGroup {
   public SwerveDriveCommand(DriveTrain _DriveTrain, AngleTrain _AngleTrain,double _joyLeftY, double _joyLeftX, double _joyRightX,double _targetAngle) {
     super(
       new SpeedDriveCommand(_DriveTrain, _joyLeftY, _joyLeftX),
-      new AngleWheelsCommand(_AngleTrain, _targetAngle),
+      new WheelAnglePID(_AngleTrain, _targetAngle),
       new TurnCommand(_AngleTrain, _DriveTrain, _joyRightX)
     );
   }

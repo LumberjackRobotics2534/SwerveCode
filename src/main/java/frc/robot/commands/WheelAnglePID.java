@@ -12,20 +12,21 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.AngleTrain;
 
-public class RearLeftAnglePID extends PIDCommand {
-  /**
-   * Creates a new RearLeftAnglePID.
-   */
-  public RearLeftAnglePID(AngleTrain _angleTrain, double _targetAngle) {
+public class WheelAnglePID extends PIDCommand {
+  
+  public WheelAnglePID(AngleTrain _angleTrain, double _targetAngle) {
     super(
         new PIDController(0, 0, 0),
-        _angleTrain::getRearRightAngle,
+        _angleTrain::getFrontLeftAngle,
         _targetAngle,
         output -> {
-          _angleTrain.rearLeft.set(output);
-        },
-      _angleTrain);
-    getController().enableContinuousInput(Constants.anglePIDMinInput, Constants.anglePIDMaxInput);
+           _angleTrain.frontLeft.set(output);
+           _angleTrain.frontRight.set(output);
+           _angleTrain.rearLeft.set(output);
+           _angleTrain.rearRight.set(output);
+       },
+        _angleTrain);
+      getController().enableContinuousInput(Constants.anglePIDMinInput, Constants.anglePIDMaxInput);
   }
 
   // Returns true when the command should end.

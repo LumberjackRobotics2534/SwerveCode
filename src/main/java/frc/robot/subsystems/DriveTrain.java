@@ -1,15 +1,16 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-  public WPI_TalonFX frontRight = new WPI_TalonFX(Constants.frontRightDriveMotorID);
-  public WPI_TalonFX rearRight = new WPI_TalonFX(Constants.rearRightDriveMotorID);
-  public WPI_TalonFX frontLeft = new WPI_TalonFX(Constants.frontLeftDriveMotorID);
-  public WPI_TalonFX rearLeft = new WPI_TalonFX(Constants.rearLeftDriveMotorID);
+  public CANSparkMax frontRight = new CANSparkMax(Constants.frontRightDriveMotorID, MotorType.kBrushless);
+  public CANSparkMax rearRight = new CANSparkMax(Constants.rearRightDriveMotorID, MotorType.kBrushless);
+  public CANSparkMax frontLeft = new CANSparkMax(Constants.frontLeftDriveMotorID, MotorType.kBrushless);
+  public CANSparkMax rearLeft = new CANSparkMax(Constants.rearLeftDriveMotorID, MotorType.kBrushless);
   double frontRightAngle;
   double rearRightAngle;
   double frontLeftAngle;

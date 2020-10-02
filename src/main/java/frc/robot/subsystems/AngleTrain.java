@@ -1,23 +1,23 @@
 
-
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class AngleTrain extends SubsystemBase{
-    public WPI_TalonFX frontRight = new WPI_TalonFX(Constants.frontRightAngleMotorID);
-    public WPI_TalonFX rearRight = new WPI_TalonFX(Constants.rearRightAngleMotorID);
-    public WPI_TalonFX frontLeft = new WPI_TalonFX(Constants.frontLeftAngleMotorID);
-    public WPI_TalonFX rearLeft = new WPI_TalonFX(Constants.rearLeftDriveMotorID);
+    public CANSparkMax frontRight = new CANSparkMax(Constants.frontRightAngleMotorID, MotorType.kBrushless);
+    public CANSparkMax rearRight = new CANSparkMax(Constants.rearRightAngleMotorID, MotorType.kBrushless);
+    public CANSparkMax frontLeft = new CANSparkMax(Constants.frontLeftAngleMotorID, MotorType.kBrushless);
+    public CANSparkMax rearLeft = new CANSparkMax(Constants.rearLeftDriveMotorID, MotorType.kBrushless);
 
-    DutyCycleEncoder frontRightEncoder = new DutyCycleEncoder(Constants.frontRightEncoderID);
-    DutyCycleEncoder rearRightEncoder = new DutyCycleEncoder(Constants.rearRightEncoderID);
-    DutyCycleEncoder frontLeftEncoder = new DutyCycleEncoder(Constants.frontLeftEncoderID);
-    DutyCycleEncoder rearLeftEncoder = new DutyCycleEncoder(Constants.rearLeftEncoderID);
+    public AnalogInput frontRightEncoder = new AnalogInput(Constants.frontRightEncoderID);
+    public AnalogInput frontLeftEncoder = new AnalogInput(Constants.frontLeftEncoderID);
+    public AnalogInput rearRightEncoder = new AnalogInput(Constants.rearRightEncoderID);
+    public AnalogInput rearLeftEncoder = new AnalogInput(Constants.rearLeftEncoderID);
     
     double frontRightAngle;
     double rearRightAngle;
@@ -29,22 +29,22 @@ public class AngleTrain extends SubsystemBase{
   }
 
   public double getFrontRightAngle(){
-    frontRightAngle = frontRightEncoder.get();
+    frontRightAngle = (frontRightEncoder.getVoltage() / 5) * 360 ;
     return frontRightAngle;
   }
 
   public double getRearRightAngle(){
-    rearRightAngle = rearRightEncoder.get();
+    rearRightAngle = (rearRightEncoder.getVoltage() / 5) * 360;
     return rearRightAngle;
   }
 
   public double getFrontLeftAngle(){
-    frontLeftAngle = frontLeftEncoder.get();
+    frontLeftAngle = (frontLeftEncoder.getVoltage() / 5) * 360;
     return frontLeftAngle;
   }
 
   public double getRearLeftAngle(){
-    rearLeftAngle = rearLeftEncoder.get();
+    rearLeftAngle = (rearLeftEncoder.getVoltage() / 5) * 360;
     return rearLeftAngle;
   }
 

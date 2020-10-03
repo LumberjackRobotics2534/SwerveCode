@@ -11,9 +11,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.AngleTrain;
 import frc.robot.subsystems.DriveTrain;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class SwerveDriveCommand extends ParallelCommandGroup {
   
   public SwerveDriveCommand(DriveTrain _DriveTrain, AngleTrain _AngleTrain,double _joyLeftY, double _joyLeftX, double _joyRightX,double _targetAngle) {

@@ -30,7 +30,7 @@ public class SpeedDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute(){
-    speed = Math.max(joyLeftY, joyLeftX);
+    speed = Math.sqrt(Math.pow(joyLeftY, 2) + Math.pow(joyLeftX, 2));
   }
 
   // Called once the command ends or is interrupted.

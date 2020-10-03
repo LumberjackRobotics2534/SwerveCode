@@ -7,22 +7,24 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 public class SwerveModule extends SpeedControllerGroup {
-    static WPI_TalonFX driveMotor;
-    static WPI_TalonFX angleMotor;
-    static DutyCycleEncoder angleEncoder;
+    static CANSparkMax driveMotor;
+    static CANSparkMax angleMotor;
+    static AnalogInput angleEncoder;
     double angle;
 
     public SwerveModule(int _driveMotorID, int _angleMotorID, int _encoderID) {
         super(driveMotor, angleMotor);
-        driveMotor = new WPI_TalonFX(_driveMotorID);
-        angleMotor = new WPI_TalonFX(_angleMotorID);
-        angleEncoder = new DutyCycleEncoder(_encoderID);
+        driveMotor = new CANSparkMax(_driveMotorID, MotorType.kBrushless);
+        angleMotor = new CANSparkMax(_angleMotorID, MotorType.kBrushless);
+        angleEncoder = new AnalogInput(_encoderID);
     }
 
     public void setDriveSpeed(double driveSpeed) {
@@ -34,7 +36,7 @@ public class SwerveModule extends SpeedControllerGroup {
     }
 
     public double getAngle() {
-        angle = angleEncoder.get();
+        angle = (angleEncoder.getVoltage() / 5) * 360;
         return angle;
     }
 }

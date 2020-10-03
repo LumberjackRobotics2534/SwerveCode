@@ -41,20 +41,22 @@ public class RobotContainer {
   /*Since the Joysticks give a -1 to 1 value and I needed to convert that to 0 to 360 scale, and then to -180 to 180
   so that it could be compared to the absolute encoder, arcsin works great for this*/
   public double getTargetAngle(){
+    double adjJoyLeftY = (1 / (Math.sqrt(Math.pow(joyLeftY, 2) + Math.pow(joyLeftX, 2)))) * joyLeftY;
+    double adjJoyLeftX = (1 / (Math.sqrt(Math.pow(joyLeftY, 2) + Math.pow(joyLeftX, 2)))) * joyLeftX;;
     currentAngle = angleTrain.getFrontLeftAngle();
     angleError = targetAngle - currentAngle;
     if(Math.abs(angleError) <= 90){
-      if(joyLeftY >= 0){
-        if(joyLeftX >= 0){
-          targetAngle = Math.asin(joyLeftX) * 180 / Math.PI;//0-90
-        } else if(joyLeftX < 0){
-          targetAngle = (Math.asin(joyLeftX) * -180 / Math.PI) + 180;//180-270
+      if(adjJoyLeftY >= 0){
+        if(adjJoyLeftX >= 0){
+          targetAngle = Math.asin(adjJoyLeftX) * 180 / Math.PI;//0-90
+        } else if(adjJoyLeftX < 0){
+          targetAngle = (Math.asin(adjJoyLeftX) * -180 / Math.PI) + 180;//180-270
         }
       } else{        
-        if(joyLeftX < 0){
-          targetAngle = (Math.asin(joyLeftX) * -180 / Math.PI) + 180;//90-180
+        if(adjJoyLeftX < 0){
+          targetAngle = (Math.asin(adjJoyLeftX) * -180 / Math.PI) + 180;//90-180
         } else{
-          targetAngle = (Math.asin(joyLeftX) * 180 / Math.PI) + 360;//270-360
+          targetAngle = (Math.asin(adjJoyLeftX) * 180 / Math.PI) + 360;//270-360
           }
         }
     } else if(Math.abs(angleError) >= 90 && currentAngle <= 180){

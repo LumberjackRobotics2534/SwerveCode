@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.other;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -15,15 +8,17 @@ public class Trigger{
     boolean active;
     double triggerValue;
 
-    public boolean active(XboxController _controller, String side){
-        if(side == "left"){
+    public Trigger(XboxController _controller, Side _side){
+        if(_side == Side.kLeft){
             triggerValue = _controller.getTriggerAxis(Hand.kLeft);
-        } else if(side == "right"){
+        } else if(_side == Side.kRight){
             triggerValue = _controller.getTriggerAxis(Hand.kRight);
         } else{
             triggerValue = 0;
         }
-        
+    }
+
+    public boolean active(XboxController _controller, String side){
         if(triggerValue > 0.2){
             active = true;
         } else{
@@ -33,10 +28,21 @@ public class Trigger{
     }
 
     public void whileHeld(Command _Command){
-        if(active){
+        while(active){
             _Command.schedule();
         }
     }
+
+    public enum Side {
+        kLeft(0), kRight(1);
+    
+        @SuppressWarnings("MemberName")
+        public final int value;
+    
+        Side(int value) {
+          this.value = value;
+        }
+      }
 
 
 }

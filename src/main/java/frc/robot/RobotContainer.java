@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.*;
+import frc.robot.other.Trigger;
+import frc.robot.other.Trigger.Side;
 import frc.robot.subsystems.AngleTrain;
 import frc.robot.subsystems.DriveTrain;
 
@@ -31,7 +33,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-
+    Trigger trigger = new Trigger(controller, Side.kLeft);
   }
 
   public Command getAutonomousCommand() {
